@@ -1,5 +1,28 @@
+import { useEffect, useState } from "react";
+import { pokemonService } from "./services/pokemon";
+import type { PokemonItem } from "./types/pokemon";
+
 function App() {
-	return <h1 className="text-2xl text-red-400">Hello World</h1>;
+	const [pokemon, setPokemon] = useState<PokemonItem | null>(null);
+
+	useEffect(() => {
+		const fetchDataPokemon = async () => {
+			try {
+				const data = await pokemonService.getPokemon();
+				console.log(data);
+				setPokemon(data);
+			} catch (error) {
+				console.error("API Error: ", error);
+			}
+		};
+		fetchDataPokemon();
+	}, []);
+
+	return (
+		<div className="">
+			<pre>{JSON.stringify(pokemon, null, 2)}</pre>
+		</div>
+	);
 }
 
 export default App;
