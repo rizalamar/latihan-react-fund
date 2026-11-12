@@ -14,7 +14,10 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-	(response) => response.data,
+	(response) => {
+		//console.log("Isi response dari axios:", response);
+		return response;
+	},
 	(error) => {
 		console.error(`API Error: `, error.response.data);
 		return Promise.reject(error);
